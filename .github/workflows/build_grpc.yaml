@@ -1,6 +1,9 @@
 name: Build grpc wheel on IBMZ
 
 on:
+  push:
+    branches:
+      - main
   workflow_call:
     inputs:
       release:
@@ -28,18 +31,18 @@ jobs:
           export GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1;
           pip install --upgrade pip;
           pip install --upgrade setuptools;
-          pip install grpcio==${{ inputs.release }};
+          pip install grpcio==1.66.1;
           WHEEL_PATH=$(find /root/.cache/pip/wheels/ -name "grpcio*.whl");
           cp $WHEEL_PATH /build/;'         
 
       - name: Create a tag
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git config user.name "GitHub Actions"
           git config user.email "<>"
-          git tag ${{ inputs.release }}
-          git push origin ${{ inputs.release }} -f
+          git tag 1.66.1
+          git push origin 1.66.1- -f
 
       - name: Capture the file
         id: capture
@@ -51,9 +54,9 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          name: ${{ inputs.release }}
-          tag_name: ${{ inputs.release }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          name: 1.66.1
+          tag_name: 1.66.1
+          token: ${{ secrets.GH_TOKEN }}
           files: ${{ steps.capture.outputs.ARTIFACT }}
           draft: false
           prerelease: false
