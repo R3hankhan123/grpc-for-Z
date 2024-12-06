@@ -24,13 +24,13 @@ jobs:
         run: >-
           docker run --rm --platform "linux/s390x"
           --mount "type=bind,src=$(pwd),dst=/build"
-          -w "/build" s390x/python:3.8 /bin/bash -ec '
+          -w "/build" s390x/python:3.11 /bin/bash -ec '
           export GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1;
           pip install --upgrade pip;
           pip install --upgrade setuptools;
-          pip install grpcio==1.58.0;
+          pip install grpcio==${{ inputs.release }};
           WHEEL_PATH=$(find /root/.cache/pip/wheels/ -name "grpcio*.whl");
-          cp $WHEEL_PATH /build/;'          
+          cp $WHEEL_PATH /build/;'         
 
       - name: Create a tag
         env:
