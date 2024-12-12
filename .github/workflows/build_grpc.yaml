@@ -42,7 +42,7 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "<>"
           git tag 1.66.1
-          git push origin 1.66.1- -f
+          git push origin 1.66.1 -f
 
       - name: Capture the file
         id: capture
