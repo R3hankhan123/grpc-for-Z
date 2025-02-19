@@ -41,8 +41,8 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "<>"
-          git tag 1.66.1
-          git push origin 1.66.1 -f
+          git tag 1.70.0
+          git push origin 1.70.0 -f
 
       - name: Capture the file
         id: capture
