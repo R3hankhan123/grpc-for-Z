@@ -31,7 +31,7 @@ jobs:
           export GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1;
           pip install --upgrade pip;
           pip install --upgrade setuptools;
-          pip install grpcio==1.66.1;
+          pip install grpcio==1.70.0;
           WHEEL_PATH=$(find /root/.cache/pip/wheels/ -name "grpcio*.whl");
           cp $WHEEL_PATH /build/;'         
 
@@ -54,8 +54,8 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          name: 1.66.1
-          tag_name: 1.66.1
+          name: 1.70.0
+          tag_name: 1.70.0
           token: ${{ secrets.GH_TOKEN }}
           files: ${{ steps.capture.outputs.ARTIFACT }}
           draft: false
